@@ -56,7 +56,7 @@ export class AuthClientService {
     }
 
     async verifyClient(token:any){
-         
+      
         return await this.usersService.findUserByEmail(token.email,users)
         
     }
