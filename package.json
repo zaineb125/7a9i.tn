@@ -32,8 +32,12 @@
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+<<<<<<< HEAD
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.0",
+=======
+    "orm": "^6.2.0",
+>>>>>>> 300edf4076fde436d1733689f17090f9fd3c9388
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
