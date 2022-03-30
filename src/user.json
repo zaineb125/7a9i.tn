@@ -2,8 +2,15 @@
     {
         "id":"1",
         "email":"zaineb@gmail.com",
-        "password":"12345678",
+        "password":"$2b$10$dXdfFq.Ig9EmUkk70HWgvudLP/fa9xniIqDd5tS5dU.IxXqxrpcmC",
         "type":"client"
+     
+     },
+     {
+        "id":"2",
+        "email":"ilef@gmail.com",
+        "password":"$2b$10$dXdfFq.Ig9EmUkk70HWgvudLP/fa9xniIqDd5tS5dU.IxXqxrpcmC",
+        "type":"lawyer"
      
      }
  ] 

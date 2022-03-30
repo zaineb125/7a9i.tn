@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AuthLawyerController } from './auth-lawyer.controller';
 import { AuthLawyerService } from './auth-lawyer.service';
-import { UsersModule } from './../users/users.module';
-import { JwtStrategy } from './strategy/jwt.strategy';
+import { JwtStrategyLawyer } from './strategy/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { UsersService } from 'src/users/users/users.service';
+import { AuthUserService } from 'src/auth-user/auth-user.service';
+import { AuthUserModule } from 'src/auth-user/auth-user.module';
+
 
 @Module({
   imports:[
@@ -16,11 +17,13 @@ import { UsersService } from 'src/users/users/users.service';
       }
       }),
     PassportModule.register({defaultStrategy: 'jwt'}), 
-    UsersModule
+    AuthUserModule
+    
   ],
   controllers: [AuthLawyerController],
   providers: [AuthLawyerService,
-                JwtStrategy,
-                UsersService]
+              JwtStrategyLawyer,
+              AuthUserService
+              ]
 })
 export class AuthLawyerModule {}

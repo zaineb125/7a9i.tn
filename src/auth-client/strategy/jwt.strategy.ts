@@ -11,7 +11,7 @@ export class JwtStrategyClient extends JwtStrategyUser {
       }
     
       async validate(payload:any) {
-        console.log("0")
+        
        return this.authClientService.verifyClient(payload)
       }
 }

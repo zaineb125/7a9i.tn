@@ -25,7 +25,15 @@ export class AuthLawyerController {
     }
 
     @Post("signup")
-    async signUp(@Body() dto:authLawyerSignUpDto){
-        return this.authLawyerService.signUp(dto) 
+    async signUp(@Body() dto:authLawyerSignUpDto,@Response() response){
+        const token = this.authLawyerService.signUp(dto) 
+       
+        response        
+        .cookie('access_token', token , {
+        httpOnly: true,
+        domain: 'localhost', 
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      })
+      .send({ success: true }); 
     }
 }

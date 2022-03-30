@@ -1,21 +1,16 @@
 import { AuthLawyerService } from './../auth-lawyer.service';
 import { Injectable } from "@nestjs/common";
-import { ExtractJwt, Strategy } from "passport-jwt";
-import { PassportStrategy } from "@nestjs/passport";
+import { JwtStrategyUser } from 'src/auth-user/strategy/jwt.strategy';
 
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy,'jwt') {
+export class JwtStrategyLawyer extends  JwtStrategyUser {
     constructor(private authLawyerService : AuthLawyerService) {
-        super({
-          jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-          ignoreExpiration: false,
-          secretOrKey:"secret",
-        });
-      }
+      super()
+    }
+
     
-      async validate(payload:any) {
-       
-        return this.authLawyerService.verifyLawyer(payload)
-      }
+    async validate(payload:any) {
+      return this.authLawyerService.verifyLawyer(payload)
+    }
 }

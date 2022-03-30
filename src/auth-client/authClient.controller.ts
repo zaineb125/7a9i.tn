@@ -5,7 +5,7 @@ import { Body, Controller, Post, Response, UseGuards} from "@nestjs/common";
 import { AuthGuard } from '@nestjs/passport';
 
 
-@Controller("authclient")
+@Controller("auth-client")
 export class AuthClientController {
     constructor(private authClientService:AuthClientService){}
 

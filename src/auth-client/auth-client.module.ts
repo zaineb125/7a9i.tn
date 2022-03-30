@@ -1,5 +1,4 @@
 import { AuthUserModule } from './../auth-user/auth-user.module';
-import { UsersModule } from './../users/users.module';
 import {  JwtStrategyClient } from './strategy/jwt.strategy';
 import { AuthClientController } from './authClient.controller';
 import { Module } from '@nestjs/common';
@@ -18,7 +17,7 @@ import { AuthUserService } from 'src/auth-user/auth-user.service';
       }
       }),
     PassportModule.register({defaultStrategy: 'jwt'}), 
-    UsersModule,
+    
     AuthUserModule
   ],
   controllers:[AuthClientController],

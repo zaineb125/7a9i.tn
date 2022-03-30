@@ -6,15 +6,7 @@ import { authClientSignInDto } from './dto/authClientSignIn.dto';
 
 
 
-const users=[
-    {
-        "id":"1",
-        "email":"zaineb@gmail.com",
-        "password":"$2b$10$dXdfFq.Ig9EmUkk70HWgvudLP/fa9xniIqDd5tS5dU.IxXqxrpcmC",
-        "type":"client"
-     
-     }
- ] 
+const users=require("../user.json")
 
 @Injectable()
 export class AuthClientService {
@@ -35,7 +27,6 @@ export class AuthClientService {
     }
 
     async verifyClient(token:any){
-      console.log("1")
         return await this.authUserService.findUserByEmail(token.email,users)
         
     }
