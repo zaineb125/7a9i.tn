@@ -1,7 +1,7 @@
 import { GetCurrentUserById } from './auth-client/utils/get-user-by-id.decorator';
 import { Controller, Get, UseGuards ,Request } from '@nestjs/common';
 import { AppService } from './app.service';
-import { JwtAuthGuard } from './auth-client/guards/JwtGuard.guard';
+import { JwtAuthGuard } from './auth-user/guards/JwtGuard.guard';
 
 @Controller()
 export class AppController {
