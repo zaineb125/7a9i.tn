@@ -8,11 +8,11 @@ import { AuthGuard } from '@nestjs/passport';
 export class AuthLawyerController {
     constructor(private authLawyerService:AuthLawyerService){}
 
-    @UseGuards(AuthGuard('jwt'))
+   
     @Post("signin")
     async signIn(@Body() dto:authLawyerSignInDto,@Response() response){
      
-        const token = this.authLawyerService.signIn(dto)
+        const token = this.authLawyerService.signInLawyer(dto)
     
         response        
         .cookie('access_token', token , {
@@ -24,9 +24,11 @@ export class AuthLawyerController {
   
     }
 
+    
+
     @Post("signup")
     async signUp(@Body() dto:authLawyerSignUpDto,@Response() response){
-        const token = this.authLawyerService.signUp(dto) 
+        const token = this.authLawyerService.signUpLawyer(dto) 
        
         response        
         .cookie('access_token', token , {
