@@ -15,9 +15,6 @@ export class AuthClient extends mongoose.Document{
     age:number;
     @Prop({required:true})
     city:string;
-    @Prop({required:true})
-    problemType:string;
-    Budget:string;
     @Prop({required:true,IsEmail:true})
     email:string;
     salt:string;

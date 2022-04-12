@@ -23,16 +23,6 @@ export  class authClientSignUpDto {
         message: "Vous devez spécifier une valeur"
         })
     city:string;
-    
-    @IsNotEmpty({
-        message: "Vous devez spécifier une valeur"
-        })
-    problemType:string;
-   
-    @IsNotEmpty({
-        message: "Vous devez spécifier une valeur"
-        })
-    Budget:number;
    
     @IsNotEmpty({
         message: "Vous devez spécifier une valeur"
