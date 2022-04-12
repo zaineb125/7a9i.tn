@@ -1,5 +1,4 @@
-import { Param } from "@nestjs/common";
-import { Equals, IsEmail, IsNotEmpty, MinLength} from "class-validator";
+import {  IsEmail, IsNotEmpty, MinLength} from "class-validator";
 
 export  class authClientSignUpDto {
    
@@ -62,6 +61,6 @@ export  class authClientSignUpDto {
     type:string;
    
     Comment:string;
-   
+    jwt:string;
 }
 

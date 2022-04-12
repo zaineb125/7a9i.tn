@@ -9,11 +9,11 @@ import { AuthGuard } from '@nestjs/passport';
 export class AuthClientController {
     constructor(private authClientService:AuthClientService){}
 
-    @UseGuards(AuthGuard('jwt'))
+   
     @Post("signin")
     async signIn(@Body() dto:authClientSignInDto,@Response() response){
      
-        const token = this.authClientService.signIn(dto)
+        const token = this.authClientService.signInClient(dto)
     
         response        
         .cookie('access_token', token , {
@@ -27,7 +27,7 @@ export class AuthClientController {
 
     @Post("signup")
     async signUp(@Body() dto:authClientSignUpDto,@Response() response){
-        const token = this.authClientService.signUp(dto) 
+        const token = this.authClientService.signUpClient(dto) 
        
         response        
         .cookie('access_token', token , {

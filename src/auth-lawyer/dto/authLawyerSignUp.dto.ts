@@ -1,4 +1,3 @@
-
 import {IsEmail, IsNotEmpty, MinLength} from "class-validator";
 
 export  class authLawyerSignUpDto {
@@ -59,6 +58,8 @@ export  class authLawyerSignUpDto {
     type:string;
    
     Comment:string;
+   
+    jwt:string;
    
 }
 
