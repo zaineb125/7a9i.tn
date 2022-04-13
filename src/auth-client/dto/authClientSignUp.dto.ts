@@ -23,8 +23,11 @@ export  class authClientSignUpDto {
         message: "Vous devez spécifier une valeur"
         })
     city:string;
+<<<<<<< HEAD
     
   
+=======
+>>>>>>> 505d44b5cb85fa611a024e81adc5563600058769
    
     @IsNotEmpty({
         message: "Vous devez spécifier une valeur"

@@ -1,7 +1,7 @@
 import { authClientSignUpDto } from './dto/authClientSignUp.dto';
 import { authClientSignInDto } from './dto/authClientSignIn.dto';
 import { AuthClientService } from './auth-client.service';
-import { Body, Controller, Get, Post, Response, Request,UseGuards} from "@nestjs/common";
+import { Body, Controller, Get, Post, Response, Request,UseGuards, Res} from "@nestjs/common";
 import { AuthGuard } from '@nestjs/passport';
 
 
@@ -11,10 +11,10 @@ export class AuthClientController {
 
    
     @Post("signin")
-    async signIn(@Body() dto:authClientSignInDto,@Response() response){
+    async signIn(@Body() dto:authClientSignInDto,@Res({ passthrough: true }) response: Response){
      
-        const token = this.authClientService.signInClient(dto)
-    
+        const token = await this.authClientService.signInClient(dto)
+      
         response        
         .cookie('access_token', token , {
         httpOnly: true,
@@ -22,7 +22,7 @@ export class AuthClientController {
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       })
       .send({ success: true });
-  
+
     }
 
     @Get("signout")
@@ -34,8 +34,8 @@ export class AuthClientController {
     }
 
     @Post("signup")
-    async signUp(@Body() dto:authClientSignUpDto,@Response() response){
-        const token = this.authClientService.signUpClient(dto) 
+    async signUp(@Body() dto:authClientSignUpDto,@Res({ passthrough: true }) response: Response){
+        const token = await this.authClientService.signUpClient(dto) 
        
         response        
         .cookie('access_token', token , {

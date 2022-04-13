@@ -53,8 +53,12 @@ export class AuthClientService {
         const mdp =await bcrypt.compare(dto.password,Client.password);
       
         if(!mdp) throw new UnauthorizedException('Credentials incorrect');
+        
+        const token =await this.signClient(dto.email, "Client")
        
-        return this.updateClientByJWT(dto,await this.signClient(dto.email, "Client"));
+        this.updateClientByJWT(dto,token);
+        
+        return token ;
   
     }
 
@@ -68,8 +72,10 @@ export class AuthClientService {
                 dto.salt = await bcrypt.genSalt();
                 dto.password = await bcrypt.hash (dto.password, dto.salt);
                 dto.confirmPassword = await bcrypt.hash (dto.password, dto.salt);
-                dto.jwt=await this.signClient(dto.email,"Client");
-                return this.insertClient(dto)
+                const token = await this.signClient(dto.email,"Client");
+                dto.jwt=token ;
+                this.insertClient(dto) ;
+                return token ;
             }
             else {
                throw new UnconfirmException();
