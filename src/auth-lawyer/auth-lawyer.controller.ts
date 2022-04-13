@@ -1,8 +1,9 @@
 import { authLawyerSignUpDto } from './dto/authLawyerSignUp.dto';
 import { authLawyerSignInDto } from './dto/authLawyerSignIn.dto';
 import { AuthLawyerService } from './auth-lawyer.service';
-import { Body, Controller, Post, Response, UseGuards} from "@nestjs/common";
+import { Body, Controller, Post,UseGuards,Res} from "@nestjs/common";
 import { AuthGuard } from '@nestjs/passport';
+import { Response } from 'express';
 
 @Controller('auth-lawyer')
 export class AuthLawyerController {
@@ -10,7 +11,7 @@ export class AuthLawyerController {
 
    
     @Post("signin")
-    async signIn(@Body() dto:authLawyerSignInDto,@Response() response){
+    async signIn(@Body() dto:authLawyerSignInDto,@Res({ passthrough: true }) response: Response){
      
         const token = this.authLawyerService.signInLawyer(dto)
     
@@ -27,7 +28,7 @@ export class AuthLawyerController {
     
 
     @Post("signup")
-    async signUp(@Body() dto:authLawyerSignUpDto,@Response() response){
+    async signUp(@Body() dto:authLawyerSignUpDto,@Res({ passthrough: true }) response: Response){
         const token = this.authLawyerService.signUpLawyer(dto) 
        
         response        

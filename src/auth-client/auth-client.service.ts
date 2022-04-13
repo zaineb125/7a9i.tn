@@ -95,7 +95,7 @@ export class AuthClientService {
         });
     }
 
-   // async signoutClient(){}
+   //async signoutClient(){}
 
    async verifyClient(token:any){
       
