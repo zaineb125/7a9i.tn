@@ -36,6 +36,15 @@ export class AuthLawyerService {
         }
     }
 
+    async findLawyerByJwt(jwt:string):Promise<AuthLawyer>{
+      
+        const lawyer =await this.authLawyerModel.findOne({"jwt":jwt});
+   
+        if(lawyer){
+            return lawyer ;
+        }
+    }
+
     async updateLawyerByJWT(dto:authLawyerSignInDto,jwt:string){
   
         const updatedLawyer =await this.findLawyerByEmail(dto.email);
@@ -46,6 +55,7 @@ export class AuthLawyerService {
     }
     
     async signInLawyer(dto:authLawyerSignInDto){
+        
         if(!dto.password || !dto.email) throw new RequiredException();
         
         const lawyer =await this.findLawyerByEmail(dto.email);
@@ -53,9 +63,12 @@ export class AuthLawyerService {
         const mdp =await bcrypt.compare(dto.password,lawyer.password);
        
         if(!mdp) throw new UnauthorizedException('Credentials incorrect');
+       
+        const token =await this.signLawyer(dto.email, "Client")
+       
+        this.updateLawyerByJWT(dto,token);
         
-        return this.updateLawyerByJWT(dto,await this.signLawyer(dto.email, "Lawyer"));
-  
+        return token ;
     }
 
     
@@ -68,8 +81,10 @@ export class AuthLawyerService {
                 dto.salt = await bcrypt.genSalt();
                 dto.password = await bcrypt.hash (dto.password, dto.salt);
                 dto.confirmPassword = await bcrypt.hash (dto.password, dto.salt);
-                dto.jwt=await this.signLawyer(dto.email,"lawyer");
-                return this.insertLawyer(dto)
+                const token = await this.signLawyer(dto.email,"Client");
+                dto.jwt=token ;
+                this.insertLawyer(dto) ;
+                return token ;
             }
             else {
                throw new UnconfirmException();
@@ -78,6 +93,16 @@ export class AuthLawyerService {
         else{
             throw new ExistingEmailException()
         }
+    }
+
+    async signoutLawyer(jwt:string){
+    
+        const lawyer =this.findLawyerByJwt(jwt);
+       
+        (await lawyer).jwt="";
+        
+        console.log(lawyer);
+       
     }
     
    

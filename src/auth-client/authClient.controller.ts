@@ -1,8 +1,8 @@
 import { authClientSignUpDto } from './dto/authClientSignUp.dto';
 import { authClientSignInDto } from './dto/authClientSignIn.dto';
 import { AuthClientService } from './auth-client.service';
-import { Body, Controller, Post, Res } from "@nestjs/common";
-import { Response } from 'express';
+import { Body, Controller, Get, Post, Req, Res } from "@nestjs/common";
+import { Response ,Request } from 'express';
 
 
 
@@ -24,6 +24,16 @@ export class AuthClientController {
       })
       .send({ success: true });
 
+    }
+
+    @Get('signout')
+    async logout(@Req()req:Request,@Res({ passthrough: true }) res: Response) {
+      
+      const token =req.cookies.access_token;
+      
+      this.authClientService.signoutClient(token);
+      res.cookie('access_token', '', { expires: new Date() });
+   
     }
 
     @Post("signup")

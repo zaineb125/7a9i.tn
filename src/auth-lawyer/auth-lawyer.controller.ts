@@ -1,9 +1,9 @@
 import { authLawyerSignUpDto } from './dto/authLawyerSignUp.dto';
 import { authLawyerSignInDto } from './dto/authLawyerSignIn.dto';
 import { AuthLawyerService } from './auth-lawyer.service';
-import { Body, Controller, Post,UseGuards,Res} from "@nestjs/common";
+import { Body, Controller, Post,UseGuards,Res, Get, Req} from "@nestjs/common";
 import { AuthGuard } from '@nestjs/passport';
-import { Response } from 'express';
+import { Response ,Request } from 'express';
 
 @Controller('auth-lawyer')
 export class AuthLawyerController {
@@ -13,7 +13,7 @@ export class AuthLawyerController {
     @Post("signin")
     async signIn(@Body() dto:authLawyerSignInDto,@Res({ passthrough: true }) response: Response){
      
-        const token = this.authLawyerService.signInLawyer(dto)
+        const token = await this.authLawyerService.signInLawyer(dto)
     
         response        
         .cookie('access_token', token , {
@@ -25,11 +25,21 @@ export class AuthLawyerController {
   
     }
 
+    @Get('signout')
+    async logout(@Req()req:Request,@Res({ passthrough: true }) res: Response) {
+      
+      const token =req.cookies.access_token;
+       
+      this.authLawyerService.signoutLawyer(token);
+     
+      res.cookie('access_token', '', { expires: new Date() });
+   
+    }
     
 
     @Post("signup")
     async signUp(@Body() dto:authLawyerSignUpDto,@Res({ passthrough: true }) response: Response){
-        const token = this.authLawyerService.signUpLawyer(dto) 
+        const token =await this.authLawyerService.signUpLawyer(dto) 
        
         response        
         .cookie('access_token', token , {

@@ -28,8 +28,6 @@ export class AuthLawyer extends mongoose.Document{
     @Prop({required:true})
     type:string;
     @Prop()
-    Comment:string;
-    @Prop()
     jwt:string;
 
 }

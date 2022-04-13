@@ -19,7 +19,7 @@ export class JwtStrategyLawyer extends PassportStrategy(Strategy,'jwt') {
 
       async validate(payload:any) {
         
-        //return this.authLawyerService.verifyLawyer(payload)
+        return this.authLawyerService.verifyLawyer(payload)
        }
     
      

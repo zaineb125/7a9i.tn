@@ -35,6 +35,14 @@ export class AuthClientService {
         }
     }
 
+    async findClientByJwt(jwt:string):Promise<AuthClient>{
+        
+        const Client =await this.authClientModel.findOne({"jwt":jwt});
+        if(Client){
+            return Client ;
+        }
+    }
+
     async updateClientByJWT(dto:authClientSignInDto,jwt:string){
   
         const updatedClient =await this.findClientByEmail(dto.email);
@@ -95,7 +103,11 @@ export class AuthClientService {
         });
     }
 
-   //async signoutClient(){}
+   async signoutClient(jwt:string){
+       const client =this.findClientByJwt(jwt);
+       (await client).jwt="";
+       console.log(client);
+   }
 
    async verifyClient(token:any){
       

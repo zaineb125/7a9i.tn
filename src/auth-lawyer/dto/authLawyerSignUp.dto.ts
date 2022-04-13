@@ -57,7 +57,7 @@ export  class authLawyerSignUpDto {
 
     type:string;
    
-    Comment:string;
+    
    
     jwt:string;
    
