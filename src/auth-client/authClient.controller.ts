@@ -1,7 +1,7 @@
 import { authClientSignUpDto } from './dto/authClientSignUp.dto';
 import { authClientSignInDto } from './dto/authClientSignIn.dto';
 import { AuthClientService } from './auth-client.service';
-import { Body, Controller, Post, Response, UseGuards} from "@nestjs/common";
+import { Body, Controller, Get, Post, Response, Request,UseGuards} from "@nestjs/common";
 import { AuthGuard } from '@nestjs/passport';
 
 
@@ -23,6 +23,14 @@ export class AuthClientController {
       })
       .send({ success: true });
   
+    }
+
+    @Get("signout")
+    async signOut(@Request() req){
+      console.log(req)
+      const cookie =req.cookies ;
+      console.log(cookie.token);
+      
     }
 
     @Post("signup")

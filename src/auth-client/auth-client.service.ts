@@ -89,6 +89,8 @@ export class AuthClientService {
         });
     }
 
+   // async signoutClient(){}
+
    async verifyClient(token:any){
       
         return await this.findClientByEmail(token.email)
