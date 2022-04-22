@@ -55,5 +55,7 @@ export  class authClientSignUpDto {
     Comment:string;
     
     jwt:string;
+
+   
 }
 

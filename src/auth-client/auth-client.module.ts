@@ -16,7 +16,7 @@ import { JwtStrategyClient } from './strategy/jwt.strategy';
       expiresIn: '24h',
       }
       }),
-    PassportModule.register({defaultStrategy: 'jwt'}), 
+    PassportModule.register({defaultStrategy: 'jwt'}),
     MongooseModule.forFeature([{name:"authClient",schema:AuthClientSchema}]),
    
   ],

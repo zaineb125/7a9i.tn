@@ -1,10 +1,16 @@
 import { authClientSignUpDto } from './dto/authClientSignUp.dto';
 import { authClientSignInDto } from './dto/authClientSignIn.dto';
 import { AuthClientService } from './auth-client.service';
-import { Body, Controller, Get, Post, Req, Res } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Req, Res, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { Response ,Request } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { v4 as uuidv4 } from 'uuid'
 
-
+const editFileName = (req, file, cb) => {
+  const randomName = uuidv4()+file.originalname;
+  cb(null, randomName);
+}
 
 @Controller("auth-client")
 export class AuthClientController {
@@ -16,14 +22,49 @@ export class AuthClientController {
      
         const token = await this.authClientService.signInClient(dto)
       
-        response        
-        .cookie('access_token', token , {
-        httpOnly: true,
-        domain: 'localhost', 
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-      })
-      .send({ success: true });
+        return {token : token} ;
 
+    }
+    
+   
+ /*
+    @Post('/picture/:jwt')
+    @UseInterceptors(FileInterceptor('file', {
+    storage: diskStorage({
+    destination: './files',
+    filename: editFileName,
+    }),
+    }))
+    uploadFile(
+    @Param("jwt")jwt,
+    @UploadedFile() file: Express.Multer.File) {
+    const response = {
+    originalname: file.originalname,
+    filename: file.filename,
+    };
+    this.authClientService.updatePicture(jwt,__filename);
+    return response;
+  } 
+
+    @Get('/:imgpath')
+    seeUploadedFile(@Param('imgpath') image,@Res() res) {
+      return res.sendFile(image, { root: './files' });
+    }
+
+    */
+
+
+    @Get("clientInfo/:jwt")
+    async getClientInfo(@Param("jwt")jwt:any){
+      const clientInfo= this.authClientService.findClientByJWT(jwt);
+      const client = await clientInfo;
+      return {
+        "firstName": client.name,
+        "familyName": client.FamilyName,
+        "age": client.age,
+        "adress": client.city,
+        "email": client.email,
+      };
     }
 
     @Get('signout')
@@ -40,15 +81,6 @@ export class AuthClientController {
     async signUp(@Body() dto:authClientSignUpDto,@Res({ passthrough: true }) response: Response){
         const token = await this.authClientService.signUpClient(dto) 
        
-        response        
-        .cookie('access_token', token , {
-        httpOnly: true,
-        domain: 'localhost', 
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-      })
-      .send({ success: true ,
-              token :token ,
-              
-      });
+        return { token :token};
     }
 }

@@ -9,6 +9,9 @@ import { authClientSignUpDto } from './dto/authClientSignUp.dto';
 import { RequiredException } from './exceptions/Required.exception';
 import { UnconfirmException } from './exceptions/confirm.exception';
 import { ExistingEmailException } from './exceptions/ExistingEmail.exception';
+import { v4 as uuidv4 } from 'uuid'
+
+
 
 @Injectable()
 export class AuthClientService {
@@ -35,13 +38,21 @@ export class AuthClientService {
         }
     }
 
-    async findClientByJwt(jwt:string):Promise<AuthClient>{
+    
+    async findClientByJWT(jwt:string):Promise<AuthClient>{
         
         const Client =await this.authClientModel.findOne({"jwt":jwt});
         if(Client){
             return Client ;
         }
     }
+
+    async updatePicture(jwt:string, imageName:string){
+        const client =await this.findClientByJWT(jwt); 
+        client.image=imageName ;
+        return client.save()
+    }
+  
 
     async updateClientByJWT(dto:authClientSignInDto,jwt:string){
   
@@ -104,16 +115,19 @@ export class AuthClientService {
     }
 
    async signoutClient(jwt:string){
-       const client =this.findClientByJwt(jwt);
+       const client =this.findClientByJWT(jwt);
        (await client).jwt="";
        console.log(client);
    }
+
+
 
    async verifyClient(token:any){
       
         return await this.findClientByEmail(token.email)
         
     }
+   
 
 }
 
