@@ -8,7 +8,7 @@ import { AuthLawyer, AuthLawyerDocument } from './models/auth-lawyer.model';
 import { authLawyerSignInDto } from './dto/authLawyerSignIn.dto';
 import { RequiredException } from './exceptions/Required.exception';
 import { UnconfirmException } from './exceptions/confirm.exception';
-import { ExistingEmailException } from 'src/auth-client/exceptions/ExistingEmail.exception';
+import { ExistingEmailException } from 'src/auth-lawyer/exceptions/ExistingEmail.exception';
 
 
 @Injectable()
@@ -54,6 +54,13 @@ export class AuthLawyerService {
         return updatedLawyer.save();
     }
     
+    async updatePicture(jwt:string, imageName:string){
+        const lawyer =await this.findLawyerByJwt(jwt); 
+        lawyer.image="http://localhost:3000/auth-lawyer/"+imageName ;
+        lawyer.save() ;
+        return lawyer ;
+    }
+
     async signInLawyer(dto:authLawyerSignInDto){
         
         if(!dto.password || !dto.email) throw new RequiredException();
@@ -64,7 +71,7 @@ export class AuthLawyerService {
        
         if(!mdp) throw new UnauthorizedException('Credentials incorrect');
        
-        const token =await this.signLawyer(dto.email, "Client")
+        const token =await this.signLawyer(dto.email, "lawyer")
        
         this.updateLawyerByJWT(dto,token);
         
@@ -81,7 +88,7 @@ export class AuthLawyerService {
                 dto.salt = await bcrypt.genSalt();
                 dto.password = await bcrypt.hash (dto.password, dto.salt);
                 dto.confirmPassword = await bcrypt.hash (dto.password, dto.salt);
-                const token = await this.signLawyer(dto.email,"Client");
+                const token = await this.signLawyer(dto.email,"lawyer");
                 dto.jwt=token ;
                 this.insertLawyer(dto) ;
                 return token ;

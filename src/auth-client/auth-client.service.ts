@@ -9,7 +9,7 @@ import { authClientSignUpDto } from './dto/authClientSignUp.dto';
 import { RequiredException } from './exceptions/Required.exception';
 import { UnconfirmException } from './exceptions/confirm.exception';
 import { ExistingEmailException } from './exceptions/ExistingEmail.exception';
-import { v4 as uuidv4 } from 'uuid'
+
 
 
 
@@ -49,8 +49,9 @@ export class AuthClientService {
 
     async updatePicture(jwt:string, imageName:string){
         const client =await this.findClientByJWT(jwt); 
-        client.image=imageName ;
-        return client.save()
+        client.image="http://localhost:3000/auth-client/"+imageName ;
+        client.save() ;
+        return client ;
     }
   
 
@@ -82,7 +83,7 @@ export class AuthClientService {
     }
 
     
-     async signUpClient(dto:authClientSignUpDto){
+    async signUpClient(dto:authClientSignUpDto){
         
         const Client = await this.findClientByEmail(dto.email);
        

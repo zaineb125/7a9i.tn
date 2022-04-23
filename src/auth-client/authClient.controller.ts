@@ -27,7 +27,7 @@ export class AuthClientController {
     }
     
    
- /*
+ 
     @Post('/picture/:jwt')
     @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
@@ -38,12 +38,16 @@ export class AuthClientController {
     uploadFile(
     @Param("jwt")jwt,
     @UploadedFile() file: Express.Multer.File) {
+    console.log("1")
     const response = {
     originalname: file.originalname,
     filename: file.filename,
     };
-    this.authClientService.updatePicture(jwt,__filename);
-    return response;
+    console.log("2")
+    console.log(response.filename);
+    return this.authClientService.updatePicture(jwt,response.filename);
+   
+    
   } 
 
     @Get('/:imgpath')
@@ -51,8 +55,7 @@ export class AuthClientController {
       return res.sendFile(image, { root: './files' });
     }
 
-    */
-
+    
 
     @Get("clientInfo/:jwt")
     async getClientInfo(@Param("jwt")jwt:any){
@@ -64,6 +67,7 @@ export class AuthClientController {
         "age": client.age,
         "adress": client.city,
         "email": client.email,
+        "image":client.image,
       };
     }
 

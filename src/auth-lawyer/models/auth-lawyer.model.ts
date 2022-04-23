@@ -29,6 +29,8 @@ export class AuthLawyer extends mongoose.Document{
     type:string;
     @Prop()
     jwt:string;
+    @Prop()
+    image:string;
 
 }
 export const AuthLawyerSchema = SchemaFactory.createForClass(AuthLawyer);

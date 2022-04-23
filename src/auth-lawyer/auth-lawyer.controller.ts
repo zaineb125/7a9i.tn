@@ -1,10 +1,16 @@
 import { authLawyerSignUpDto } from './dto/authLawyerSignUp.dto';
 import { authLawyerSignInDto } from './dto/authLawyerSignIn.dto';
 import { AuthLawyerService } from './auth-lawyer.service';
-import { Body, Controller, Post,UseGuards,Res, Get, Req, Param} from "@nestjs/common";
-import { AuthGuard } from '@nestjs/passport';
+import { Body, Controller, Post,UseGuards,Res, Get, Req, Param, UseInterceptors, UploadedFile} from "@nestjs/common";
 import { Response ,Request } from 'express';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { v4 as uuidv4 } from 'uuid'
 
+const editFileName = (req, file, cb) => {
+  const randomName = uuidv4()+file.originalname;
+  cb(null, randomName);
+}
 @Controller('auth-lawyer')
 export class AuthLawyerController {
     constructor(private authLawyerService:AuthLawyerService){}
@@ -19,6 +25,33 @@ export class AuthLawyerController {
   
     }
 
+    @Post('/picture/:jwt')
+    @UseInterceptors(FileInterceptor('file', {
+    storage: diskStorage({
+    destination: './files',
+    filename: editFileName,
+    }),
+    }))
+    uploadFile(
+    @Param("jwt")jwt,
+    @UploadedFile() file: Express.Multer.File) {
+    console.log("1")
+    const response = {
+    originalname: file.originalname,
+    filename: file.filename,
+    };
+    console.log("2")
+    console.log(response.filename);
+    return this.authLawyerService.updatePicture(jwt,response.filename);
+   
+    
+  } 
+
+    @Get('/:imgpath')
+    seeUploadedFile(@Param('imgpath') image,@Res() res) {
+      return res.sendFile(image, { root: './files' });
+    }
+
     @Get("lawyerInfo/:jwt")
     async getlawyerInfo(@Param("jwt")jwt:any){
       const lawyerInfo= this.authLawyerService.findLawyerByJwt(jwt);
@@ -30,7 +63,8 @@ export class AuthLawyerController {
         "adress": lawyer.city,
         "email": lawyer.email,
         "speciality":lawyer.speciality,
-        "description":lawyer.description
+        "description":lawyer.description,
+        "image":lawyer.image,
       };
     }
 
@@ -59,3 +93,5 @@ export class AuthLawyerController {
       .send({ success: true }); 
     }
 }
+
+
