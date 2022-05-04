@@ -68,6 +68,24 @@ export class AuthLawyerController {
       };
     }
 
+    @Post("lawyers")
+    async getlawyers(@Param("jwt")jwt:any){
+      const lawyerInfo= this.authLawyerService.getLawyers();
+      const lawyers = await lawyerInfo;
+      const result = lawyers.map(lawyer => {
+        return(
+        {"firstName": lawyer.name,
+        "familyName": lawyer.FamilyName,
+        "age": lawyer.age,
+        "adress": lawyer.city,
+        "email": lawyer.email,
+        "speciality":lawyer.speciality,
+        "description":lawyer.description,
+        "image":lawyer.image,})
+      });
+      return result ;
+    }
+
     @Get('signout')
     async logout(@Req()req:Request,@Res({ passthrough: true }) res: Response) {
       

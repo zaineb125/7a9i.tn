@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable, UnauthorizedException} from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { AuthClient, AuthClientDocument } from 'src/auth-Client/models/auth-Client.model';
@@ -69,6 +69,8 @@ export class AuthClientService {
         if(!dto.password || !dto.email) throw new RequiredException();
         
         const Client =await this.findClientByEmail(dto.email);
+
+        if(!Client) throw new NotFoundException('user not found') ;
         
         const mdp =await bcrypt.compare(dto.password,Client.password);
       
