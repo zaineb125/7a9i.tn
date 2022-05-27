@@ -7,23 +7,20 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthClientSchema } from './models/auth-client.model';
 import { JwtStrategyClient } from './strategy/jwt.strategy';
 
-
 @Module({
-  imports:[
+  imports: [
     JwtModule.register({
-      secret:"secret",
+      secret: 'secret',
       signOptions: {
-      expiresIn: '24h',
-      }
-      }),
-    PassportModule.register({defaultStrategy: 'jwt'}),
-    MongooseModule.forFeature([{name:"authClient",schema:AuthClientSchema}]),
-   
+        expiresIn: '24h',
+      },
+    }),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    MongooseModule.forFeature([
+      { name: 'authClient', schema: AuthClientSchema },
+    ]),
   ],
-  controllers:[AuthClientController],
-  providers: [AuthClientService,
-              JwtStrategyClient,
-              
-            ]
+  controllers: [AuthClientController],
+  providers: [AuthClientService, JwtStrategyClient],
 })
 export class AuthClientModule {}

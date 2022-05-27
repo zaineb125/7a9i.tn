@@ -7,16 +7,20 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MulterModule } from '@nestjs/platform-express';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-
+import { CasesModule } from './cases/cases.module';
 
 @Module({
-  imports: [AuthClientModule,
-            AuthLawyerModule,
-            MulterModule.register({
-              dest: './files',
-            }),
-            MongooseModule.forRoot('mongodb+srv://zaineb:zaineb@cluster0.yao1u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
-           ],
+  imports: [
+    AuthClientModule,
+    AuthLawyerModule,
+    MulterModule.register({
+      dest: './files',
+    }),
+    MongooseModule.forRoot(
+      'mongodb+srv://zaineb:zaineb@cluster0.yao1u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    ),
+    CasesModule,
+  ],
 
   controllers: [AppController],
   providers: [AppService],
