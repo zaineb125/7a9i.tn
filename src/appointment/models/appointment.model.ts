@@ -18,9 +18,12 @@ export class Appointment extends mongoose.Document{
     
     @Prop({required:true})
     description:string;
-    
+
     @Prop({required:true})
     type:string;
+
+    @Prop()
+    status:string;
    
 
 }

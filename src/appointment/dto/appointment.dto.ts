@@ -20,6 +20,8 @@ export  class AppointmentDto {
     
     @IsNotEmpty()
     type:string;
+
+    status:string;
     
   
    

@@ -13,4 +13,8 @@ export class AppointmentService {
        
         return await createdAppointment.save();
     }
+
+    /*async getAppointment(status:any){
+        return await createdAppointment
+    }*/
 }
