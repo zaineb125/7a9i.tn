@@ -27,6 +27,11 @@ export class AppointmentController {
       return this.appointmentService.getAppointmentComplete(email);
     }
 
+    @Get('appointments/:email')
+    getAppointments(@Param("email") email:any,@Res({ passthrough: true }) res: Response) {
+      return this.appointmentService.getAppointments(email);
+    }
+
     
       
 }

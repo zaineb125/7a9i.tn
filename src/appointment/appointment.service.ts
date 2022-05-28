@@ -16,7 +16,12 @@ export class AppointmentService {
 
     async getAppointmentDemand(email:any){
         return await this.appointmentModel.find({lawyerEmail
-            :email,status:"demand"});
+            :email,status:"demande"});
+    }
+
+    async getAppointments(email:any){
+        return await this.appointmentModel.find({clientEmail
+            :email});
     }
 
     async getAppointmentProgress(email:any){
@@ -28,4 +33,7 @@ export class AppointmentService {
         return await this.appointmentModel.find({lawyerEmail
             :email,status:"complete"});
     }
+    
+    
 }
+
