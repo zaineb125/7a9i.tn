@@ -14,15 +14,18 @@ export class AppointmentService {
         return await createdAppointment.save();
     }
 
-    async getAppointmentDemand(){
-        return await this.appointmentModel.find({status:"demand"});
+    async getAppointmentDemand(email:any){
+        return await this.appointmentModel.find({status:"demand",lawyerEmail
+        :email});
     }
 
-    async getAppointmentProgress(){
-        return await this.appointmentModel.find({status:"progress"});
+    async getAppointmentProgress(email:any){
+        return await this.appointmentModel.find({status:"progress",lawyerEmail
+        :email});
     }
 
-    async getAppointmentFinished(){
-        return await this.appointmentModel.find({status:"finished"});
+    async getAppointmentComplete(email:any){
+        return await this.appointmentModel.find({status:"complete",lawyerEmail
+        :email});
     }
 }
