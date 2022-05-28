@@ -25,9 +25,7 @@ export class AuthClientController {
         return {token : token} ;
 
     }
-    
    
- 
     @Post('/picture/:jwt')
     @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
@@ -38,12 +36,12 @@ export class AuthClientController {
     uploadFile(
     @Param("jwt")jwt,
     @UploadedFile() file: Express.Multer.File) {
-    console.log("1")
+    
     const response = {
     originalname: file.originalname,
     filename: file.filename,
     };
-    console.log("2")
+    
     console.log(response.filename);
     return this.authClientService.updatePicture(jwt,response.filename);
    

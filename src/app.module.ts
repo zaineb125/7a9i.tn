@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MulterModule } from '@nestjs/platform-express';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AppointmentModule } from './appointment/appointment.module';
 
 
 @Module({
@@ -15,7 +16,8 @@ import { join } from 'path';
             MulterModule.register({
               dest: './files',
             }),
-            MongooseModule.forRoot('mongodb+srv://zaineb:zaineb@cluster0.yao1u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+            MongooseModule.forRoot('mongodb+srv://zaineb:zaineb@cluster0.yao1u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'),
+            AppointmentModule
            ],
 
   controllers: [AppController],
