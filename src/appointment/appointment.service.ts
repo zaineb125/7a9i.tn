@@ -14,7 +14,15 @@ export class AppointmentService {
         return await createdAppointment.save();
     }
 
-    /*async getAppointment(status:any){
-        return await createdAppointment
-    }*/
+    async getAppointmentDemand(){
+        return await this.appointmentModel.find({status:"demand"});
+    }
+
+    async getAppointmentProgress(){
+        return await this.appointmentModel.find({status:"progress"});
+    }
+
+    async getAppointmentFinished(){
+        return await this.appointmentModel.find({status:"finished"});
+    }
 }

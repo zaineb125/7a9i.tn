@@ -37,21 +37,6 @@ export class AuthClientController {
     return { token: token };
   }
 
-<<<<<<< HEAD
-    }
-   
-    @Post('/picture/:jwt')
-    @UseInterceptors(FileInterceptor('file', {
-    storage: diskStorage({
-    destination: './files',
-    filename: editFileName,
-    }),
-    }))
-    uploadFile(
-    @Param("jwt")jwt,
-    @UploadedFile() file: Express.Multer.File) {
-    
-=======
   @Post('/picture/:jwt')
   @UseInterceptors(
     FileInterceptor('file', {
@@ -63,16 +48,11 @@ export class AuthClientController {
   )
   uploadFile(@Param('jwt') jwt, @UploadedFile() file: Express.Multer.File) {
     console.log('1');
->>>>>>> 5136c2e08d1f8f091ea1020f74f38d42cbdfb9c6
     const response = {
       originalname: file.originalname,
       filename: file.filename,
     };
-<<<<<<< HEAD
-    
-=======
     console.log('2');
->>>>>>> 5136c2e08d1f8f091ea1020f74f38d42cbdfb9c6
     console.log(response.filename);
     return this.authClientService.updatePicture(jwt, response.filename);
   }
