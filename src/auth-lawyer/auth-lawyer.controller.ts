@@ -44,8 +44,7 @@ export class AuthLawyerController {
     console.log(response.filename);
     return this.authLawyerService.updatePicture(jwt,response.filename);
    
-    
-  } 
+    } 
 
     @Get('/:imgpath')
     seeUploadedFile(@Param('imgpath') image,@Res() res) {

@@ -12,18 +12,18 @@ export class AppointmentController {
       return await this.appointmentService.addAppointment(dto) ;
     }
 
-    @Post('demand')
-    getAppointmentDemand(@Body()email:string) {
+    @Get('demand/:email')
+    getAppointmentDemand(@Param("email") email:any,@Res({ passthrough: true }) res: Response) {
       return this.appointmentService.getAppointmentDemand(email);
     }
 
-    @Post('progress')
-    getAppointmentProgress(@Body()email:string) {
+    @Get('progress/:email')
+    getAppointmentProgress(@Param("email") email:any,@Res({ passthrough: true }) res: Response) {
       return this.appointmentService.getAppointmentProgress(email);
     }
 
-    @Post('complete')
-    getAppointmentComplete(@Body()email:string) {
+    @Get('complete/:email')
+    getAppointmentComplete(@Param("email") email:any,@Res({ passthrough: true }) res: Response) {
       return this.appointmentService.getAppointmentComplete(email);
     }
 
