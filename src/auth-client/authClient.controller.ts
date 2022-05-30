@@ -76,6 +76,14 @@ export class AuthClientController {
     };
   }
 
+  @Get('clientInfoByEmail/:email')
+  async getCLientByEmail(@Param('email') email: any) {
+    const client = await this.authClientService.findClientByEmail(email);
+    if (client) {
+      return client;
+    }
+  }
+
   @Get('signout')
   async logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const token = req.cookies.access_token;

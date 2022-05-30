@@ -1,30 +1,29 @@
+import { Optional } from '@nestjs/common';
+import { IsDate, IsEmail, IsNotEmpty } from 'class-validator';
 
-import {  IsEmail, IsNotEmpty} from "class-validator";
+export class AppointmentDto {
+  @Optional()
+  id: string;
 
-export  class AppointmentDto {
-   
-    
-    @IsNotEmpty()
-    @IsEmail()
-    lawyerEmail:string;
-    
-    @IsNotEmpty()
-    @IsEmail()
-    clientEmail:string;
-    
-    
-    date:Date;
+  @IsNotEmpty()
+  @IsEmail()
+  lawyerEmail: string;
 
-    @IsNotEmpty()
-    description:string;
-    
-    @IsNotEmpty()
-    type:string;
+  @IsNotEmpty()
+  @IsEmail()
+  clientEmail: string;
 
-    status:string;
-    
-  
-   
-   
+  @Optional()
+  date: Date;
+
+  @IsNotEmpty()
+  description: string;
+
+  @IsNotEmpty()
+  type: string;
+
+  @IsNotEmpty()
+  status: string;
+
+  todos: string[];
 }
-

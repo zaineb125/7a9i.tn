@@ -5,28 +5,26 @@ import { Document } from 'mongoose';
 export type AppointmentDocument = Appointment & Document;
 
 @Schema()
-export class Appointment extends mongoose.Document{
-   
-    @Prop({required:true,IsEmail:true})
-    lawyerEmail:string;
-    
-    @Prop({required:true,IsEmail:true})
-    clientEmail:string;
-    
-    @Prop()
-    date:Date;
-    
-    @Prop({required:true})
-    description:string;
+export class Appointment extends mongoose.Document {
+  @Prop({ required: true, IsEmail: true })
+  lawyerEmail: string;
 
-    @Prop({required:true})
-    type:string;
+  @Prop({ required: true, IsEmail: true })
+  clientEmail: string;
 
-    @Prop()
-    status:string;
-   
+  @Prop()
+  date: Date;
 
+  @Prop({ required: true })
+  description: string;
+
+  @Prop({ required: true })
+  type: string;
+
+  @Prop()
+  status: string;
+
+  @Prop()
+  todos: string[];
 }
 export const AppointmentSchema = SchemaFactory.createForClass(Appointment);
-
- 
