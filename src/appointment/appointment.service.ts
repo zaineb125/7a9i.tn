@@ -41,6 +41,14 @@ export class AppointmentService {
     });
   }
 
+  async getClientAppointmentComplete(email: any) {
+    return await this.appointmentModel.find({
+      clientEmail: email,
+      status: 'terminée',
+      isRated: false ,
+    });
+  }
+
   async getAppointmentComplete(email: any) {
     return await this.appointmentModel.find({
       lawyerEmail: email,
@@ -57,6 +65,13 @@ export class AppointmentService {
 
   async deleteApointById(id: any) {
     await this.appointmentModel.deleteOne({ _id: id });
+  }
+
+  async updateRated(id : any) {
+    const appointment = await this.getAppointmentById(id);
+
+    appointment.isRated = true ;
+    return appointment.save() ;
   }
 
   async updateAppointment(id: any, dto: UpdateAppointmentDTO) {

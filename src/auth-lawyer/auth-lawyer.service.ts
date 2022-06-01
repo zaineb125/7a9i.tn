@@ -9,6 +9,7 @@ import { authLawyerSignInDto } from './dto/authLawyerSignIn.dto';
 import { RequiredException } from './exceptions/Required.exception';
 import { UnconfirmException } from './exceptions/confirm.exception';
 import { ExistingEmailException } from 'src/auth-lawyer/exceptions/ExistingEmail.exception';
+import { Double } from 'typeorm';
 
 
 @Injectable()
@@ -54,7 +55,7 @@ export class AuthLawyerService {
         return updatedLawyer.save();
     }
 
-    async updateRating(email:string,rating:string){
+    async updateRating(email:string,rating:number){
   
         const updatedLawyer =await this.findLawyerByEmail(email);
         

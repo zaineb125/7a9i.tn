@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { Document } from 'mongoose';
+import { Double } from 'typeorm';
 
 export type AuthLawyerDocument = AuthLawyer & Document;
 
@@ -31,7 +32,7 @@ export class AuthLawyer extends mongoose.Document {
   @Prop()
   image: string;
   @Prop()
-  rating:string;
+  rating:number;
   @Prop()
   phoneNumber:number;
 }

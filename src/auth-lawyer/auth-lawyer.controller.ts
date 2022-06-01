@@ -6,6 +6,7 @@ import { Response ,Request } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid'
+import { Double } from 'typeorm';
 
 const editFileName = (req, file, cb) => {
   const randomName = uuidv4()+file.originalname;
@@ -123,7 +124,7 @@ export class AuthLawyerController {
       }
     }
     @Post("updateRating/:email/:rating")
-    async updateRating(@Body("email") email:string , @Body("rating") rating:string){
+    async updateRating(@Param("email") email:string , @Param("rating") rating:number){
 
       return await this.authLawyerService.updateRating(email,rating);
 

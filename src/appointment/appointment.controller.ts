@@ -57,6 +57,14 @@ export class AppointmentController {
     return this.appointmentService.getClientAppointmentProgress(email);
   }
 
+  @Get('completeClient/:email')
+  getClientAppointmentComplete(
+    @Param('email') email: any,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.appointmentService.getClientAppointmentComplete(email);
+  }
+
   @Get('complete/:email')
   getAppointmentComplete(
     @Param('email') email: any,
@@ -72,5 +80,13 @@ export class AppointmentController {
     @Res({ passthrough: true }) res: Response,
   ) {
     return this.appointmentService.updateAppointment(id, appointmentDto);
+  }
+
+  @Patch('/rated/:id')
+  updateRated(
+    @Param('id') id: string,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.appointmentService.updateRated(id);
   }
 }
