@@ -64,6 +64,8 @@ export class AuthLawyerController {
         "speciality":lawyer.speciality,
         "description":lawyer.description,
         "image":lawyer.image,
+        "phoneNumber":lawyer.phoneNumber,
+        "rating":lawyer.rating,
       };
     }
 
@@ -80,7 +82,9 @@ export class AuthLawyerController {
         "email": lawyer.email,
         "speciality":lawyer.speciality,
         "description":lawyer.description,
-        "image":lawyer.image,})
+        "image":lawyer.image,
+        "phoneNumber":lawyer.phoneNumber,
+        "rating":lawyer.rating,})
       });
       return result ;
     }

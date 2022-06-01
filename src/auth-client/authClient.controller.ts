@@ -73,6 +73,7 @@ export class AuthClientController {
       adress: client.city,
       email: client.email,
       image: client.image,
+      phoneNumber:client.phoneNumber,
     };
   }
 

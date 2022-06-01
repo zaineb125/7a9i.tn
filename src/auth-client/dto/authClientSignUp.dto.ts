@@ -57,5 +57,7 @@ export  class authClientSignUpDto {
     jwt:string;
 
    image:string;
+
+   phoneNumber:number;
 }
 

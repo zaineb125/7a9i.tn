@@ -54,9 +54,17 @@ export  class authLawyerSignUpDto {
         message:"taille courte"
     }) 
     confirmPassword:string;
+    
     type:string;
+    
     jwt:string;
+    
     image:string ;
+    
+    rating:string;
+
+    phoneNumber:number;
+
    
 }
 
