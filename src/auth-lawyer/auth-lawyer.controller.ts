@@ -122,6 +122,12 @@ export class AuthLawyerController {
         return lawyer;
       }
     }
+    @Post("updateRating/:email/:rating")
+    async updateRating(@Body("email") email:string , @Body("rating") rating:string){
+
+      return await this.authLawyerService.updateRating(email,rating);
+
+    }
 }
 
 

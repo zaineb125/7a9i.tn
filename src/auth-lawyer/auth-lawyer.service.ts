@@ -53,6 +53,15 @@ export class AuthLawyerService {
        
         return updatedLawyer.save();
     }
+
+    async updateRating(email:string,rating:string){
+  
+        const updatedLawyer =await this.findLawyerByEmail(email);
+        
+        updatedLawyer.rating=rating;
+       
+        return updatedLawyer.save();
+    }
     
     async updatePicture(jwt:string, imageName:string){
         const lawyer =await this.findLawyerByJwt(jwt); 
