@@ -17,20 +17,26 @@ export class AppointmentService {
     return await createdAppointment.save();
   }
 
-    async getAppointmentDemand(email:any){
-        return await this.appointmentModel.find({lawyerEmail
-            :email,status:"demande"});
-    }
-
-    async getAppointments(email:any){
-        return await this.appointmentModel.find({clientEmail
-            :email});
+  async getAppointmentDemand(email: any) {
+    const appointments = await this.appointmentModel.find({
+      lawyerEmail: email,
+      status: 'demande',
+    });
+    if (appointments) {
+      return appointments;
     }
   }
 
-  async getAppointmentProgress(email:any) {
+  async getAppointmentProgress(email: any) {
     return await this.appointmentModel.find({
       lawyerEmail: email,
+      status: 'en cours',
+    });
+  }
+
+  async getClientAppointmentProgress(email: any) {
+    return await this.appointmentModel.find({
+      clientEmail: email,
       status: 'en cours',
     });
   }
@@ -67,7 +73,6 @@ export class AppointmentService {
     if (dto.date) {
       appointment.date = dto.date;
     }
-    
-    
+    return appointment.save();
+  }
 }
-

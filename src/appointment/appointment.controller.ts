@@ -49,11 +49,28 @@ export class AppointmentController {
     return this.appointmentService.getAppointmentProgress(email);
   }
 
-    @Get('appointments/:email')
-    getAppointments(@Param("email") email:any,@Res({ passthrough: true }) res: Response) {
-      return this.appointmentService.getAppointments(email);
-    }
+  @Get('progressClient/:email')
+  getClientAppointmentProgress(
+    @Param('email') email: any,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.appointmentService.getClientAppointmentProgress(email);
+  }
 
-    
-      
+  @Get('complete/:email')
+  getAppointmentComplete(
+    @Param('email') email: any,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.appointmentService.getAppointmentComplete(email);
+  }
+
+  @Patch('/update/:id')
+  updateAppointment(
+    @Param('id') id: string,
+    @Body('') appointmentDto: UpdateAppointmentDTO,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.appointmentService.updateAppointment(id, appointmentDto);
+  }
 }

@@ -109,6 +109,15 @@ export class AuthLawyerController {
       })
       .send({ success: true }); 
     }
+
+    @Get('lawyerInfoByEmail/:email')
+    async getLawyerByEmail(@Param('email') email: any) {
+      
+      const lawyer = await this.authLawyerService.findLawyerByEmail(email);
+      if (lawyer) {
+        return lawyer;
+      }
+    }
 }
 
 
