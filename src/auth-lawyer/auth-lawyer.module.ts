@@ -1,4 +1,3 @@
-
 import { AuthLawyerSchema } from './models/auth-lawyer.model';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
@@ -8,23 +7,21 @@ import { JwtStrategyLawyer } from './strategy/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
-
 @Module({
-  imports:[
+  imports: [
     JwtModule.register({
-      secret:"secret",
+      secret: 'secret',
       signOptions: {
-      expiresIn: '24h',
-      }
-      }),
-    PassportModule.register({defaultStrategy: 'jwt'}), 
+        expiresIn: '24h',
+      },
+    }),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
 
-    MongooseModule.forFeature([{name:"authLawyer",schema:AuthLawyerSchema}])
-    
+    MongooseModule.forFeature([
+      { name: 'authLawyer', schema: AuthLawyerSchema },
+    ]),
   ],
   controllers: [AuthLawyerController],
-  providers: [AuthLawyerService,
-              JwtStrategyLawyer
-              ]
+  providers: [AuthLawyerService, JwtStrategyLawyer],
 })
 export class AuthLawyerModule {}

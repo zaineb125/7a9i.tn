@@ -45,7 +45,7 @@ export class AppointmentService {
     return await this.appointmentModel.find({
       clientEmail: email,
       status: 'terminée',
-      isRated: false ,
+      //isRated: false ,
     });
   }
 
@@ -67,11 +67,11 @@ export class AppointmentService {
     await this.appointmentModel.deleteOne({ _id: id });
   }
 
-  async updateRated(id : any) {
+  async updateRated(id: any) {
     const appointment = await this.getAppointmentById(id);
 
-    appointment.isRated = true ;
-    return appointment.save() ;
+    appointment.isRated = true;
+    return appointment.save();
   }
 
   async updateAppointment(id: any, dto: UpdateAppointmentDTO) {
