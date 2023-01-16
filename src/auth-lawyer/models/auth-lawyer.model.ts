@@ -31,7 +31,7 @@ export class AuthLawyer extends mongoose.Document {
   jwt: string;
   @Prop()
   image: string;
-  @Prop()
+  @Prop({ type: String })
   rating = '0';
   @Prop()
   phoneNumber: number;

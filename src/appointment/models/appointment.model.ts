@@ -27,7 +27,7 @@ export class Appointment extends mongoose.Document {
   @Prop()
   todos: string[];
 
-  @Prop()
+  @Prop({ type: Boolean })
   isRated = false;
 }
 export const AppointmentSchema = SchemaFactory.createForClass(Appointment);
