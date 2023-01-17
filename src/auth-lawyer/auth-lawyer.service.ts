@@ -17,7 +17,7 @@ export class AuthLawyerService {
     @InjectModel('authLawyer')
     private authLawyerModel: Model<AuthLawyerDocument>,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async insertLawyer(createAuthLawyerDto: any): Promise<AuthLawyer> {
     const createdLawyer = new this.authLawyerModel(createAuthLawyerDto);
@@ -121,5 +121,22 @@ export class AuthLawyerService {
 
   async verifyLawyer(token: any) {
     return await this.findLawyerByEmail(token.email);
+  }
+
+  async checkToken(token : string) {
+    const decodedToken = this.jwtService.decode(token) ;
+   // console.log(decodedToken);
+    
+    if(decodedToken['exp'] < new Date().getTime()/1000 || decodedToken.sub !== 'lawyer')
+      return false
+    else
+      console.log('valid');
+
+    try {
+      this.jwtService.verify(token);
+      return true;
+    } catch {
+      return false;
+    }
   }
 }

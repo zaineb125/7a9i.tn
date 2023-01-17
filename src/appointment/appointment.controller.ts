@@ -12,7 +12,10 @@ import { AppointmentDto } from './dto/appointment.dto';
 import { Response, Request } from 'express';
 import { AppointmentService } from './appointment.service';
 import { UpdateAppointmentDTO } from './dto/updateAppointment.dto';
+import { UseGuards } from '@nestjs/common/decorators/core/use-guards.decorator';
+import { MyAuthGuard } from 'src/auth.guard';
 
+@UseGuards(MyAuthGuard)
 @Controller('appointment')
 export class AppointmentController {
   constructor(private appointmentService: AppointmentService) {}

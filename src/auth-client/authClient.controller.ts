@@ -27,6 +27,13 @@ const editFileName = (req, file, cb) => {
 export class AuthClientController {
   constructor(private authClientService: AuthClientService) {}
 
+  @Get('verify')
+  async verify(@Req() req : Request) {
+    const token = req['token'] ; 
+    const result =  await this.authClientService.checkToken(token);
+    return result ;
+  }
+
   @Post('signin')
   async signIn(
     @Body() dto: authClientSignInDto,

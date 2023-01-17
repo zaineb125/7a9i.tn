@@ -119,4 +119,21 @@ export class AuthClientService {
   async verifyClient(token: any) {
     return await this.findClientByEmail(token.email);
   }
+
+  async checkToken(token : string) {
+    const decodedToken = this.jwtService.decode(token) ;
+    //console.log(decodedToken);
+
+    if(decodedToken['exp'] < new Date().getTime()/1000 || decodedToken.sub !== 'Client')
+      return false
+    else
+      console.log('valid');
+
+    try {
+      this.jwtService.verify(token);
+      return true;
+    } catch {
+      return false;
+    }
+  }
 }

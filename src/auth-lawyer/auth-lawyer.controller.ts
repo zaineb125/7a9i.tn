@@ -25,7 +25,15 @@ const editFileName = (req, file, cb) => {
 };
 @Controller('auth-lawyer')
 export class AuthLawyerController {
-  constructor(private authLawyerService: AuthLawyerService) {}
+  constructor(private authLawyerService: AuthLawyerService) { }
+
+  
+  @Get('verify')
+  async verify(@Req() req : Request) {
+    const token = req['token'] ; 
+    const result =  await this.authLawyerService.checkToken(token);
+    return result ;
+  }
 
   @Post('signin')
   async signIn(
@@ -140,4 +148,5 @@ export class AuthLawyerController {
   ) {
     return await this.authLawyerService.updateRating(email, rating);
   }
+
 }
